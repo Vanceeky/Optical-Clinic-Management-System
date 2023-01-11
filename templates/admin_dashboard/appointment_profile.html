@@ -1,0 +1,112 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block title %} Patient Profile {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="card card-body">
+
+      {% for msg in messages %}
+
+        <div class="alert alert-success alart-dismissible fade show" role="alert">
+
+          {{ msg }}
+
+        </div>
+
+
+        {% endfor %}
+
+      <div class="row">
+        <div class="col-sm-4">
+          <h3> Profile Information: </h3>
+          <ul class="list-group">
+            <li class="list-group-item border-0 ps-0 pt-0 text-sm text-capitalize"><strong class="text-dark">Full Name:</strong> &nbsp; {{ appointment.patient.firstname }} {{ appointment.patient.lastname}}</li>
+            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; {{ appointment.patient.phone }}</li>
+            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{ appointment.patient.email}}</li>
+          </ul>
+        </div>
+
+        <div class="col card">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="row">Appointment date</th>
+                  <th scope="row">Request date</th>
+                  <th scope="row">Status</th>
+                  <th scope="row">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr>
+                  <td>
+                      <h6 class="mb-0 text-center">{{ appointment.appointment_time}}</h6>
+                      <p class="text-center">{{ appointment.appointment_date }}</p>
+                    
+                  </td>
+
+                  <td>
+                    <h6 class="mb-0 text-center">{{ appointment.request_date}}</h6>
+                  </td>
+                  <td>
+                    <h6 class="mb-0 text-center">{{ appointment.status }}</h6>
+                  </td>
+                  
+                  <td>
+                    <div class="dropdown show">
+                      <a class="btn btn-secondary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-ellipsis-v"></i>
+                      </a>
+                    
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" data-toggle="modal" data-target="#CompleteAppointmentModal"><i class="material-icons">done</i> Completed </a>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-pencil mr-1"></i> Reschedule</a>
+                        <a class="dropdown-item text-danger" data-toggle="modal" data-target="#cancelAppointmentModal"><i class="fa fa-trash mr-1"></i> Cancel</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+
+
+              </tbody>
+            </table>
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+{% include 'admin_dashboard/complete.html' %}
+{% include 'admin_dashboard/reschedule_modal.html' %}
+{% include 'admin_dashboard/cancel_modal.html' %}
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+
+        var dateInput = document.getElementById("date");
+
+        // Set the "min" attribute of the date input field to the current date
+        dateInput.setAttribute("min", new Date().toISOString().split('T')[0]);
+
+    </script>
+
+
+{% endblock %}

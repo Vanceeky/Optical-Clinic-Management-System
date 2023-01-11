@@ -1,0 +1,107 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Product Collections {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!--Section: Content-->
+<section class="">
+
+    {% for msg in messages %}
+
+    <div class="alert alert-success alart-dismissible fade show" role="alert">
+    
+      {{ msg }}
+    
+    </div>
+    
+    
+    {% endfor %}
+
+    <div class="d-flex w-100 align-items-center justify-content-between">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'inventory' %}"> Collections </a></li>
+          <li class="breadcrumb-item"><a href="">{{ category.name }}</a></li>
+
+        </ol>
+      </nav>
+   
+    </div>
+
+
+  
+
+    <section class="main-content card">
+        <div class="container">
+
+          <table class="table card-body">
+            <thead>
+              <tr>
+                <th>Product code</th>
+                <th>Name</th>
+                <th>Desciption</th>
+                <th>Price</th>
+                <th>Stock</th>  
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+  
+              {% for app in products %}
+              
+              <tr>
+
+                <td>
+                  <div class="user-info">
+                    <div class="user-info__basic">
+                      <a href="{% url 'view_product' app.id %}" class="mb-0">{{ app.code}}</a>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <h6 class="mb-0">{{ app.name}}</h6>
+
+                </td>
+                <td>
+                  <h6 class="mb-0">{{ app.description }}</h6>
+
+                </td> 
+  
+                <td>
+                    <h6 class="mb-0">{{ app.stock }}</h6>
+                </td>
+                <td>
+                    <h6 class="mb-0">{{ app.price }}</h6>
+                </td>
+               
+              </tr>
+
+        
+  
+              {% endfor %}
+  
+            </tbody>
+          </table>
+        </div>
+
+
+    </section>
+
+
+
+
+    {% include 'inventory/modals/add_product.html' %}
+
+
+    
+  
+    
+</section>
+
+
+
+{% endblock %}

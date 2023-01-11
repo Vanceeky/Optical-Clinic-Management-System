@@ -1,0 +1,89 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Inventory {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!--Section: Content-->
+<section class="">
+
+    {% for msg in messages %}
+
+    <div class="alert alert-success alart-dismissible fade show" role="alert">
+    
+      {{ msg }}
+    
+    </div>
+    
+    
+    {% endfor %}
+
+
+
+    <div class="container">
+
+      <div class="row">
+          <div class="col-md-12">
+            
+              <div class="d-flex w-100 align-items-center justify-content-between">
+                <h3> Collections </h3>
+                  <div class="tools">
+                    <button type="button" class="btn btn-sucess rounded-0 btn-sm" id='add_new' data-toggle="modal" data-target="#add_category"><i class="fa fa-plus"></i> Add Category</button>
+
+                  
+
+                  <button type="button" class="btn btn-sucess rounded-0 btn-sm" id='add_new' data-toggle="modal" data-target="#add_product"><i class="fa fa-plus"></i> Add Product</button>
+
+                </div>
+             
+              </div>
+  
+              
+              <hr>
+              <div class="row">
+                
+              
+              {% for item in categories %}
+
+                  <div class="card col-md-4 m-1">
+                    <a href="{% url 'collectionsView' item.id %}">
+                    <div class="card-body">
+                      <div class="job-card_img">
+                        <img src="{{ item.image.url }}" width="100" height="50" class="float-left">
+                      </div>
+                      <div class="card_info">
+                        <h6 class="text-muted">
+                        </h6>
+                        <h4>{{ item.name }}</h4>
+                        <p class="mb-0">{{ item.description }}</p>
+                      </div>
+                    </div>
+                  </a>
+                  </div>
+            
+              {% endfor %}
+              
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+
+
+
+    {% include 'inventory/modals/add_product.html' %}
+    {% include 'inventory/modals/add_category.html' %}
+
+
+    
+  
+    
+</section>
+
+
+
+{% endblock %}

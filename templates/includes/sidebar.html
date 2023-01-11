@@ -1,0 +1,47 @@
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="/static/assets/img/sidebar-1.jpg">
+      <div class="logo">
+        <a target="_blank" rel="noopener noreferrer" 
+           href="" class="simple-text logo-normal">
+          <img src="/static/assets/img/logo.png" width="100">
+          <br>Optical Clinic
+
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+        {% if request.user.is_authenticated %}
+
+          <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+            <a class="nav-link" href="{% url 'dashboard' %}">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item {% if 'page-user' in segment %} active {% endif %}">
+            <a class="nav-link" href="{% url 'manage_appointments' %}">
+              <i class="material-icons">pending_actions</i>
+              <p>Manage Appointments</p>
+            </a>
+          </li>
+          <li class="nav-item {% if 'ui-tables' in segment %} active {% endif %}">
+            <a class="nav-link" href="{% url 'patient_list' %}">
+              <i class="material-icons">content_paste</i>
+              <p>Patients</p>
+            </a>
+          </li>
+
+          <hr>
+          <li class="nav-item {% if 'ui-typography' in segment %} active {% endif %}">
+            <a class="nav-link" href="{% url 'inventory' %}">
+              <i class="material-icons">library_books</i>
+              <p>Inventory</p>
+            </a>
+          </li>
+
+  
+
+        {% endif %}
+        </ul>
+      </div>
+
+    </div>

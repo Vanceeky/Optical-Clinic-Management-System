@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Manage Appointment {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+
+<section class="main-content">
+    <div class="container">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-8 card">
+                <div class="info-card info-card--danger bg-white text-center mb-4 rounded-lg justify-content-center">
+                    <h2 class="mb-4"> Are you sure you want to cancel this request? </h2>
+
+
+                    <form action="{% url 'cancel_request' appointment.id %}"method = "POST">
+                        {% csrf_token %}
+                        <a class="btn btn-warning" href="{% url 'manage_appointments' %}"> Cancel </a>
+                        <input class="btn btn-danger" type="submit" name="confirm" value="Confirm">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock%}

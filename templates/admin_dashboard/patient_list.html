@@ -1,0 +1,56 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block title %} Patient List {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="d-flex w-100 align-items-center justify-content-between">
+      <h3> Patient List</h3>
+
+
+  </div>               
+{% comment %}     <form method="GET">
+      {% csrf_token %}
+      {{ myFilter.form }}
+      <button type="submit" class="btn btn-white btn-round btn-just-icon">
+        <i class="material-icons">search</i>
+        <div class="ripple-container"></div>
+      </button>
+    </form> {% endcomment %}
+    <div class="row">
+      {% for app in accepted_appointment %}
+  
+      <div class="col-sm-6 col-md-6 col-lg-4">
+        <div class="card bg-white p-3 mb-4 shadow">
+          <div class="d-flex justify-content-between mb-4">
+            <div class="user-info">
+              <div class="user-info__basic">
+                <h5 class="mb-0 text-dark"><a href="{% url 'patient' app.id %}">{{ app.patient.firstname}}</a></h5>
+                <p class="text-muted mb-0 text-dark">{{ app.patient.age}} yrs, Male</p>
+                <small class="mb-0 text-dark">{{ app.patient.email}}</small>
+              </div>
+            </div>
+            
+          </div>
+          <h6 class="mb-0 text-dark">{{ app.patient.phone}}</h6>
+          <a href="#!"><small>Contact</small></a>
+          <div class="d-flex justify-content-between mt-4">
+            <div>
+              <h5 class="mb-0 text-dark">{{ app.appointment_time}}
+                <small class="ml-1 text-dark">{{ app.appointment_date}}</small>
+              </h5>
+            </div>
+            <span class="text-success font-weight-bold">{{ app.status }}</span>
+          </div>
+        </div>
+      </div>
+  
+      {% endfor %}
+  
+
+{% endblock %}

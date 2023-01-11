@@ -1,0 +1,97 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} {{ product.name }} {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="d-flex w-100 align-items-center justify-content-between">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'inventory' %}"> Collections </a></li>
+        <li class="breadcrumb-item"><a href="{% url 'collectionsView' product.category.id %}">{{ product.category.name }}</a></li>
+        <li class="breadcrumb-item"><a href="#">{{ product.name }}</a></li>
+
+      </ol>
+    </nav>
+ 
+  </div>
+
+        <section class="main-content card">
+            <div class="container">
+            
+
+            <table class="table card-body">
+                <thead>
+                <tr>
+                    <th> Image </th>
+                    <th>Product code</th>
+                    <th>Name</th>
+                    <th>Desciption</th>
+                    <th>Price</th>
+                    <th>Stock</th>  
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+             
+                <tr>
+                    <td>
+                        <img src="{{ product.image.url }}" alt="Product Image" class="w-50" />
+
+                    </td>
+
+
+                    <td>
+                    <div class="user-info">
+                        <div class="user-info__basic">
+                        <a href="" class="mb-0">{{ product.code}}</a>
+                        </div>
+                    </div>
+                    </td>
+                    <td>
+                    <h6 class="mb-0">{{ product.name}}</h6>
+
+                    </td>
+                    <td>
+                    <h6 class="mb-0">{{ product.description }}</h6>
+
+                    </td> 
+
+                    <td>
+                        <h6 class="mb-0">{{ product.stock }}</h6>
+                    </td>
+                    <td>
+                        <h6 class="mb-0">{{ product.price }}</h6>
+                    </td>
+                    <td>
+                        <div class="dropdown show">
+                        <a class="btn btn-secondary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-ellipsis-v"></i>
+                        </a>
+                        
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-pencil mr-1"></i> Update </a>
+                            <a class="dropdown-item text-danger" data-toggle="modal" data-target="#cancelAppointmentModal"><i class="fa fa-trash mr-1"></i> Delete </a>
+                        </div>
+                        </div>
+                    </td>
+                </tr>
+
+                {% include 'inventory/modals/update_product.html' %}
+                {% include 'inventory/modals/delete_modal.html' %}
+
+           
+
+                </tbody>
+            </table>
+            </div>
+
+
+        </section>
+
+
+  {% endblock %}

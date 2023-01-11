@@ -1,0 +1,332 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+{% for msg in messages %}
+
+<p class="alert alert-success alart-dismissible fade show" role="alert">
+
+  {{ msg }}
+
+</p>
+
+
+{% endfor %}
+
+    <div class="row">
+
+        <!-- Stats -->
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-warning card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">today</i>
+                </div>
+                <p class="card-category">Today's Appointment</p>
+                <h3 class="card-title">{{ todays_count }}
+                 
+                </h3>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+         
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-success card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">pending_actions</i>
+                </div>
+                <p class="card-category">Pending Request</p>
+                <h3 class="card-title">{{pending_count}}</h3>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-danger card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">done</i>
+                </div>
+                <p class="card-category"> Categories </p>
+                <h3 class="card-title">{{ category_count }}</h3>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-info card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">cancel</i>
+                  </div>
+                <p class="card-category">Products</p>
+                <h3 class="card-title">{{ product_count }}</h3>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+
+        
+
+        <div class="col-md-6">
+            Today's Appointment
+
+            <div class="card card-table mb-0">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover table-center mb-0">
+
+                      <thead>
+
+                        <tr>
+                          <th>Patient Name</th>
+                          <th>Appointment Date</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                        {% if todays_appointment %}
+                        {% for app in todays_appointment %}
+                        {% if app.status != 'Pending' and app.status != 'Completed' and app.status != 'Cancelled' %}
+
+                       
+                        <tr>
+
+                          <td>
+
+                              <!--<a href="/template/patient-profile" class="avatar avatar-sm me-2">
+                                <img class="avatar-img rounded-circle" src="" alt="User Image">
+                              </a>-->
+                              <a href="{% url 'patient' app.id %}" class="text-dark font-weight-bold ms-sm-2"> {{ app.patient.firstname }} <span class="mb-2 text-sm">#{{ app.id}} </span></a>
+
+                          </td>
+                          
+                          <td> {{ app.appointment_date}} <span class="d-block text-info">{{ app.appointment_time}}</span></td>
+
+                        
+                        
+                        </tr>
+
+    
+                      {% endif %}
+                      
+                       {% endfor %} 
+
+
+                       {% endif %}
+
+                    
+                       
+                      </tbody>
+
+                    </table>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-md-6">
+            Upcoming Appointment
+
+            <div class="card card-table mb-0">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover table-center mb-0">
+
+                      <thead>
+
+                        <tr>
+                          <th>Patient Name</th>
+                          <th>Appointment Date</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                        {% if upcoming_appointment %}
+                        {% for app in upcoming_appointment %}
+                        {% if app.status != 'Pending' and app.status != 'Completed' and app.status != 'Cancelled' %}
+
+                       
+                        <tr>
+
+                          <td>
+
+                              <!--<a href="/template/patient-profile" class="avatar avatar-sm me-2">
+                                <img class="avatar-img rounded-circle" src="" alt="User Image">
+                              </a>-->
+                              <a href="{% url 'patient' app.id %}" class="text-dark font-weight-bold ms-sm-2"> {{ app.patient.firstname }} <span class="mb-2 text-sm">#{{ app.id}} </span></a>
+
+                          </td>
+                          
+                          <td> {{ app.appointment_date}} <span class="d-block text-info">{{ app.appointment_time}}</span></td>
+
+
+                        
+                        </tr>
+
+    
+                      {% endif %}
+                      
+                       {% endfor %} 
+
+
+                       {% endif %}
+                       
+
+                       
+                      </tbody>
+
+                    </table>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    
+    <br>
+    <hr class="border-bottom">
+
+            
+
+    <section class="main-content card">
+      <div class="container">
+        <h4 class="card-header border-bottom"> Completed Appointments</h4>
+
+        <table class="table card-body">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Appointment</th>
+              <th>Contact</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for app in completed %}
+            <tr>
+              <td>
+                <div class="user-info">
+                  <div class="user-info__basic">
+                    <a href="{% url 'patient' app.id %}" class="mb-0">{{ app.patient.firstname}}</a>
+                    <p class="text-muted mb-0">{{ app.patient.age}} yrs, Male</p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <h6 class="mb-0">{{ app.appointment_time}}</h6>
+                <small>{{ app.appointment_date}}</small>
+              </td>
+              <td>
+                <h6 class="mb-0">{{ app.patient.phone }}</h6>
+                <small>{{ app.patient.email }}</small>
+              </td> 
+
+              <td>
+                <span class="btn btn-success">{{ app.status}}</span>
+              </td>
+
+              <td>
+                    <a class="dropdown-item text-danger" href="{% url 'delete_appointment' app.id %}"><i class="fa fa-trash mr-1"></i> Delete</a>
+                  
+              </td>
+            </tr>
+
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr>
+
+    <section class="main-content card">
+      <div class="container">
+        <h4 class="card-header border-bottom"> Cancelled Appointments</h4>
+
+        <table class="table card-body">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Appointment</th>
+              <th>Contact</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for app in cancelled %}
+            <tr>
+              <td>
+                <div class="user-info">
+                  <div class="user-info__basic">
+                    <a href="{% url 'patient' app.id %}" class="mb-0">{{ app.patient.firstname}}</a>
+                    <p class="text-muted mb-0">{{ app.patient.age}} yrs, Male</p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <h6 class="mb-0">{{ app.appointment_time}}</h6>
+                <small>{{ app.appointment_date}}</small>
+              </td>
+              <td>
+                <h6 class="mb-0">{{ app.patient.phone }}</h6>
+                <small>{{ app.patient.email }}</small>
+              </td> 
+
+              <td>
+                <span class="btn btn-danger">{{ app.status}}</span>
+              </td>
+
+              <td>
+                    <a class="dropdown-item text-danger" href="{% url 'delete_appointment' app.id %}"><i class="fa fa-trash mr-1"></i> Delete</a>
+                  
+              </td>
+            </tr>
+
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+{% endblock content %}
+
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascript %}
+
+{% endblock %}

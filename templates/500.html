@@ -1,0 +1,22 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block title %} 404 {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+
+<div class="jumbotron">
+    <h1 class="display-4"> 500 SERVER ERROR </h1>
+    <p class="lead">Oops, something went wrong.</p>
+    <hr class="my-4">
+    <p> Try refresh this page or feel free to contact us if the problem persists. </p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="{% url 'index' %}" role="button">Go back</a>
+    </p>
+  </div>
+
+{% endblock %}
